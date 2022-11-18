@@ -5,58 +5,61 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
+import { CoffeesService } from 'src/coffees/coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeesService: CoffeesService) {}
+
   @Get()
   findAll() {
-    return 'This action returns all the coffees';
-  }
-
-  @Get('paginated')
-  findAllPaginated(@Query() paginationQuery) {
-    const { limit, offset } = paginationQuery;
-    return `This action returns paginated coffees limit: ${limit}, offset: ${offset}`;
+    return this.coffeesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param() params) {
     const { id } = params;
 
-    return `This action returns coffee with id: ${id}`;
+    const coffee = this.coffeesService.findOne(id);
+
+    if (!coffee) {
+      throw new NotFoundException(`coffee #${id} not found.`);
+    }
+
+    return coffee;
   }
 
   @Post()
   create(@Body() body) {
-    return `This action returns the passed body: ${JSON.stringify(
-      body,
-      null,
-      2,
-    )}`;
+    return this.coffeesService.create(body);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body) {
+    return this.coffeesService.update(id, body);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.coffeesService.remove(id);
+  }
+
+  // Testing nest-js additional functionality
+  @Get('paginated')
+  findAllPaginated(@Query() paginationQuery) {
+    const { limit, offset } = paginationQuery;
+    return `This action returns paginated coffees limit: ${limit}, offset: ${offset}`;
   }
 
   @Post('gone')
   @HttpCode(HttpStatus.GONE)
   gone() {
     return `This action is gone! look for Http Status: ${HttpStatus.GONE}`;
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() body) {
-    return `This action updates coffee with id: ${id} with body ${JSON.stringify(
-      body,
-      null,
-      2,
-    )}`;
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `This action deletes coffee with id: ${id}`;
   }
 }
