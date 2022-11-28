@@ -5,6 +5,9 @@ import { CoffeesModule } from './coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 
+class DevelopmentConfigService {}
+class ProductionConfigService {}
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -21,6 +24,15 @@ import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
     CoffeeRatingModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'ConfigService',
+      useClass:
+        process.env.NODE_ENV === 'development'
+          ? DevelopmentConfigService
+          : ProductionConfigService,
+    },
+  ],
 })
 export class AppModule {}

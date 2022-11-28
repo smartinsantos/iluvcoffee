@@ -7,7 +7,10 @@ import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
 import { Flavor } from 'src/coffees/entities/flavor.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity';
-import { COFFEE_BRANDS } from 'src/coffees/coffees.contants';
+import {
+  COFFEE_BRANDS_BY_FACTORY,
+  COFFEE_BRANDS_BY_VALUE,
+} from 'src/coffees/coffees.contants';
 
 @Injectable()
 export class CoffeesService {
@@ -17,8 +20,10 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
-    @Inject(COFFEE_BRANDS)
-    private readonly coffeeBrands: string[],
+    @Inject(COFFEE_BRANDS_BY_VALUE)
+    private readonly coffeeBrandsByValue: string[],
+    @Inject(COFFEE_BRANDS_BY_FACTORY)
+    private readonly coffeeBrandsByFactory: string[],
   ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
@@ -96,8 +101,12 @@ export class CoffeesService {
     }
   }
 
-  findCoffeeBrands() {
-    return this.coffeeBrands;
+  findCoffeeBrandsByValue() {
+    return this.coffeeBrandsByValue;
+  }
+
+  findCoffeeBrandsByFactory() {
+    return this.coffeeBrandsByFactory;
   }
 
   private async preloadFlavorByName(name: string): Promise<Flavor> {

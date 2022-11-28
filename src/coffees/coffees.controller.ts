@@ -25,6 +25,23 @@ export class CoffeesController {
     return this.coffeesService.findAll(paginationQuery);
   }
 
+  // Testing nest-js additional functionality
+  @Get('paginated')
+  findAllPaginated(@Query() paginationQuery) {
+    const { limit, offset } = paginationQuery;
+    return `This action returns paginated coffees limit: ${limit}, offset: ${offset}`;
+  }
+
+  @Get('brands_value')
+  findBrandsByValue() {
+    return this.coffeesService.findCoffeeBrandsByValue();
+  }
+
+  @Get('brands_factory')
+  findBrandsByFactory() {
+    return this.coffeesService.findCoffeeBrandsByFactory();
+  }
+
   @Get(':id')
   findOne(@Param() params) {
     const { id } = params;
@@ -36,11 +53,6 @@ export class CoffeesController {
     }
 
     return coffee;
-  }
-
-  @Get('brands')
-  findBrands() {
-    return this.coffeesService.findCoffeeBrands();
   }
 
   @Post()
@@ -56,13 +68,6 @@ export class CoffeesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.coffeesService.remove(id);
-  }
-
-  // Testing nest-js additional functionality
-  @Get('paginated')
-  findAllPaginated(@Query() paginationQuery) {
-    const { limit, offset } = paginationQuery;
-    return `This action returns paginated coffees limit: ${limit}, offset: ${offset}`;
   }
 
   @Post('gone')

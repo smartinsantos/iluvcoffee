@@ -1,14 +1,23 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Module } from '@nestjs/common';
+import { Injectable, Module } from '@nestjs/common';
 import { CoffeesController } from 'src/coffees/coffees.controller';
 import { CoffeesService } from 'src/coffees/coffees.service';
 import { Coffee } from 'src/coffees/entities/coffee.entity';
 import { Flavor } from 'src/coffees/entities/flavor.entity';
 import { Event } from 'src/events/entities/event.entity';
 import {
-  COFFEE_BRANDS,
+  COFFEE_BRANDS_BY_FACTORY,
+  COFFEE_BRANDS_BY_FACTORY_2,
+  COFFEE_BRANDS_BY_VALUE,
   COFFEE_BRANDS_VALUES,
 } from 'src/coffees/coffees.contants';
+
+@Injectable()
+export class CoffeeBrandsFactory {
+  create() {
+    return COFFEE_BRANDS_VALUES;
+  }
+}
 
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
@@ -16,7 +25,22 @@ import {
   controllers: [CoffeesController],
   providers: [
     CoffeesService,
-    { provide: COFFEE_BRANDS, useValue: COFFEE_BRANDS_VALUES },
+    CoffeeBrandsFactory, // <- notice that we need to list this provider to be able to use it below
+    {
+      inject: [CoffeeBrandsFactory],
+      provide: COFFEE_BRANDS_BY_FACTORY,
+      useFactory: (brandsFactory: CoffeeBrandsFactory) =>
+        brandsFactory.create(),
+    },
+    {
+      // another way of achieving the same result using factory
+      provide: COFFEE_BRANDS_BY_FACTORY_2,
+      useFactory: () => COFFEE_BRANDS_VALUES,
+    },
+    {
+      provide: COFFEE_BRANDS_BY_VALUE,
+      useFactory: () => COFFEE_BRANDS_VALUES,
+    },
   ],
 })
 export class CoffeesModule {}
