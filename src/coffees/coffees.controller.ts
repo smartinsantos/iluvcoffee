@@ -38,6 +38,11 @@ export class CoffeesController {
     return coffee;
   }
 
+  @Get('brands')
+  findBrands() {
+    return this.coffeesService.findCoffeeBrands();
+  }
+
   @Post()
   create(@Body() createCoffeeDto: CreateCoffeeDto) {
     return this.coffeesService.create(createCoffeeDto);
