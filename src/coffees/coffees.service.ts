@@ -11,6 +11,8 @@ import {
   COFFEE_BRANDS_BY_FACTORY,
   COFFEE_BRANDS_BY_VALUE,
 } from 'src/coffees/coffees.contants';
+import { ConfigType } from '@nestjs/config';
+import coffeesConfig from 'src/coffees/coffees.config';
 
 @Injectable()
 export class CoffeesService {
@@ -24,7 +26,11 @@ export class CoffeesService {
     private readonly coffeeBrandsByValue: string[],
     @Inject(COFFEE_BRANDS_BY_FACTORY)
     private readonly coffeeBrandsByFactory: string[],
-  ) {}
+    @Inject(coffeesConfig.KEY)
+    private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>, // example of partial config with type safety
+  ) {
+    console.log({ coffeesConfig: this.coffeesConfiguration });
+  }
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
