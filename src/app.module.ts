@@ -7,9 +7,6 @@ import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 
-class DevelopmentConfigService {}
-class ProductionConfigService {}
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -35,15 +32,6 @@ class ProductionConfigService {}
     CoffeeRatingModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: 'ConfigService',
-      useClass:
-        process.env.NODE_ENV === 'development'
-          ? DevelopmentConfigService
-          : ProductionConfigService,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

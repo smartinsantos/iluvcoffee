@@ -1,9 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from 'src/common/filters/http-exception/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  // global validation pipe
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // this will remove all properties not listed in the dtos
@@ -14,6 +16,9 @@ async function bootstrap() {
       },
     }),
   );
+
+  // global http exception filter
+  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(3000);
 }
 
