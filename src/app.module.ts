@@ -18,15 +18,18 @@ class ProductionConfigService {}
         DATABASE_PORT: Joi.number().default(5432),
       }),
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: +process.env.DATABASE_PORT,
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      autoLoadEntities: true,
-      synchronize: true, // this should be disabled in a production environment
+    // forRootAsync will resolve after every other module is resolved hence the order of how we load the modules do not matter for this module
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: process.env.DATABASE_HOST,
+        port: +process.env.DATABASE_PORT,
+        username: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_NAME,
+        autoLoadEntities: true,
+        synchronize: true, // this should be disabled in a production environment
+      }),
     }),
     CoffeesModule,
     CoffeeRatingModule,
