@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/filters/http-exception/http-exception.filter';
+import { ApiKeyGuard } from 'src/common/guards/api-key/api-key.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +20,7 @@ async function bootstrap() {
 
   // global http exception filter
   app.useGlobalFilters(new HttpExceptionFilter());
+
   await app.listen(3000);
 }
 
