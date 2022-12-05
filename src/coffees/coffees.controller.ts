@@ -16,6 +16,7 @@ import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
 import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Public } from 'src/common/decorators/public.decorator';
+import { ParseIntPipe } from 'src/common/pipes/parse-int/parse-int.pipe';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -45,10 +46,8 @@ export class CoffeesController {
   }
 
   @Get(':id')
-  findOne(@Param() params) {
-    const { id } = params;
-
-    const coffee = this.coffeesService.findOne(id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    const coffee = this.coffeesService.findOne('' + id);
 
     if (!coffee) {
       throw new NotFoundException(`coffee #${id} not found.`);
