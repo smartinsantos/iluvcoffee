@@ -18,7 +18,13 @@ import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Public } from 'src/common/decorators/public.decorator';
 import { ParseIntPipe } from 'src/common/pipes/parse-int/parse-int.pipe';
 import { Protocol } from 'src/common/decorators/protocol.dectorator';
+import {
+  ApiForbiddenResponse,
+  ApiGoneResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('coffees')
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
@@ -33,23 +39,26 @@ export class CoffeesController {
     return this.coffeesService.findAll(paginationQuery);
   }
 
-  // Testing nest-js additional functionality
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @Get('paginated')
   findAllPaginated(@Query() paginationQuery) {
     const { limit, offset } = paginationQuery;
     return `This action returns paginated coffees limit: ${limit}, offset: ${offset}`;
   }
 
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @Get('brands_value')
   findBrandsByValue() {
     return this.coffeesService.findCoffeeBrandsByValue();
   }
 
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @Get('brands_factory')
   findBrandsByFactory() {
     return this.coffeesService.findCoffeeBrandsByFactory();
   }
 
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     const coffee = this.coffeesService.findOne('' + id);
@@ -61,21 +70,25 @@ export class CoffeesController {
     return coffee;
   }
 
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @Post()
   create(@Body() createCoffeeDto: CreateCoffeeDto) {
     return this.coffeesService.create(createCoffeeDto);
   }
 
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
     return this.coffeesService.update(id, updateCoffeeDto);
   }
 
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.coffeesService.remove(id);
   }
 
+  @ApiGoneResponse({ description: 'Gone' })
   @Post('gone')
   @HttpCode(HttpStatus.GONE)
   gone() {

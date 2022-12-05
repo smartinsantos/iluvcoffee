@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@nestjs/swagger';
 import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
 
 // import { IsString } from 'class-validator';
@@ -12,5 +12,5 @@ import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
 //   readonly flavors?: string[];
 // }
 
-// -> this one liner does the same thing as the code above
+// -> this one liner does the same thing as the code above making CreateCoffeeDto params optional
 export class UpdateCoffeeDto extends PartialType(CreateCoffeeDto) {}
