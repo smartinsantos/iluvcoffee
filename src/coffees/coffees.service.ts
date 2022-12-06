@@ -28,9 +28,7 @@ export class CoffeesService {
     private readonly coffeeBrandsByFactory: string[],
     @Inject(coffeesConfig.KEY)
     private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>, // example of partial config with type safety
-  ) {
-    console.log({ coffeesConfig: this.coffeesConfiguration });
-  }
+  ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
