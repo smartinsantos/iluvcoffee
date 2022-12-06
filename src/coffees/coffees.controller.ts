@@ -11,18 +11,18 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { CoffeesService } from 'src/coffees/coffees.service';
-import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
-import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { Public } from 'src/common/decorators/public.decorator';
-import { ParseIntPipe } from 'src/common/pipes/parse-int/parse-int.pipe';
-import { Protocol } from 'src/common/decorators/protocol.dectorator';
 import {
   ApiForbiddenResponse,
   ApiGoneResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { Public } from '../common/decorators/public.decorator';
+import { ParseIntPipe } from '../common/pipes/parse-int/parse-int.pipe';
+import { Protocol } from '../common/decorators/protocol.dectorator';
+import { CoffeesService } from './coffees.service';
+import { CreateCoffeeDto } from './dto/create-coffee.dto';
+import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @ApiTags('coffees')
 @Controller('coffees')

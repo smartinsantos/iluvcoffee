@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
+import { CreateCoffeeDto } from './create-coffee.dto';
 
 // import { IsString } from 'class-validator';
 //

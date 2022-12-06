@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Coffee } from 'src/coffees/entities/coffee.entity';
+import { Coffee } from './coffee.entity';
 
 @Entity()
 export class Flavor {
