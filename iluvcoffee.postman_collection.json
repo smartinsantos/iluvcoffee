@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "aada85ed-b703-407d-9b55-0a0a070333d7",
+		"name": "iluvcoffee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19985002"
+	},
+	"item": [
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees?paginationQuery",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "1234567",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/coffees?limit=0&offset=0",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "0"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/coffees",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees/brands_value",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "12345678",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/coffees/brands_value",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees",
+						"brands_value"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees/brands_factory",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "12345678",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/coffees/brands_factory",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees",
+						"brands_factory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees/:id",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "12345678",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/coffees/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "12345678",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Coffee #2\",\n    \"brand\": \"Coffee Brewers\",\n    \"flavors\": [\"caramel\", \"pumpkin\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/coffees",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees/gone",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"me\": \"Sergio\",\n    \"loves\": \"Coffees\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/coffees/gone",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees",
+						"gone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Super Coffee #1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/coffees/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/coffees/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Super Coffee\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/coffees/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coffees",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
